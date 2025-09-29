@@ -7,13 +7,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Sometype+Mono&display=swap"rel="stylesheet"/> 
+  <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Sometype+Mono&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@300;400;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="week5fortress.css" />
   <script src="week5fortress.js" defer></script>
 </head>
 <body>
-  <!-- Navigation -->
   <nav class="main-nav">
     <div class="nav-brand">The Fortress Hub</div>
     <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -22,7 +22,8 @@
       <span class="hamburger"></span>
     </button>
     <ul class="nav-menu">
-      <li><a href="#bulletin">Community Bulletin</a></li>
+      <li><a href="week5fortress.html">Home</a></li>
+      <li><a href="communitybulletin.html">Community Bulletin</a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#resources">Resources</a></li>
       <li><a href="#houses">House Profiles</a></li>
@@ -30,20 +31,19 @@
     </ul>
   </nav>
 
-  <!-- Main Content Sections -->
   <main>
-    <!-- Community Bulletin -->
-    <section id="bulletin">
-      <h2>Community Bulletin</h2>
-      <p>Welcome to the bulletin board for 12th Street! Use this space to share quick updates, safety alerts, or fun announcements with your neighbors.</p>
-      <ul>
-        <li>⚠️ Bear spotted near Euclid Ave — be careful walking home late.</li>
-        <li>📢 Need to borrow a ladder? Ask here.</li>
-        <li>📰 Weekly house challenge: Who has the best banner design?</li>
-      </ul>
-    </section>
+    <a href="communitybulletin.html" class="bulletin-link">
+        <section id="home-bulletin">
+            <h2>Community Bulletin</h2>
+            <p>Welcome to the bulletin board for 12th Street! Use this space to share quick updates, safety alerts, or fun announcements with your neighbors.</p>
+            <ul>
+                <li>⚠️ Bear spotted near Euclid Ave — be careful walking home late.</li>
+                <li>📢 Need to borrow a ladder? Ask here.</li>
+                <li>📰 Weekly house challenge: Who has the best banner design?</li>
+            </ul>
+        </section>
+    </a>
 
-    <!-- Events -->
     <section id="events">
       <h2>Upcoming Events</h2>
       <article>
@@ -60,7 +60,6 @@
       </article>
     </section>
 
-    <!-- Resources -->
     <section id="resources">
       <h2>Community Resources</h2>
       <ul>
@@ -70,7 +69,6 @@
       </ul>
     </section>
 
-    <!-- House Profiles -->
     <section id="houses">
       <h2>House Profiles</h2>
       <article>
@@ -91,7 +89,6 @@
       </article>
     </section>
 
-    <!-- Contact -->
     <section id="contact">
       <h2>Contact</h2>
       <p>Want to get in touch with your neighbors or share an idea for the site?</p>
@@ -100,4 +97,3 @@
   </main>
 </body>
 </html>
-

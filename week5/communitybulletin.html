@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Bulletin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Sometype+Mono&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="week5fortress.css" />
+  <script src="week5fortress.js" defer></script>
+</head>
+<body>
+  <nav class="main-nav">
+    <div class="nav-brand">The Fortress Hub</div>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="week5fortress.html">Home</a></li>
+      <li><a href="communitybulletin.html">Community Bulletin</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#houses">House Profiles</a></li>
+      <li><a href="#contact">Contact</a></li>
+  </ul>
+  </nav>
+
+  <main class="bulletin-page">
+    <section id="full-bulletin-board">
+      <h2>Community Bulletin Board</h2>
+      <p>This is where you can see all updates, from parties to bear sightings!</p>
+
+      <div class="post-form">
+        <h3>Add a New Post</h3>
+        <form id="new-post-form">
+          <input type="text" id="post-title" placeholder="Post Title" required>
+          <textarea id="post-content" placeholder="What's the update?" required></textarea>
+          <button type="submit">Post to Bulletin</button>
+        </form>
+      </div>
+
+      <div id="posts-container">
+        <article class="bulletin-post">
+          <h4>🐻‍❄️ Bear Sighting!</h4>
+          <p>Just saw a big bear walking near Euclid Ave. Be alert if you're out late. Stay safe!</p>
+          <span>Posted by: The Fortress</span>
+        </article>
+        <article class="bulletin-post">
+          <h4>🎉 Block Party This Saturday</h4>
+          <p>The Estate is hosting a block party this Saturday night starting at 9 PM. All houses on the hill are invited! Come by for some good music and company.</p>
+          <span>Posted by: The Estate</span>
+        </article>
+        </div>
+    </section>
+  </main>
+</body>
+</html>

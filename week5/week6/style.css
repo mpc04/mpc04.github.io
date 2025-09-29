@@ -47,3 +47,8 @@
   grid-column: span 2;
   height: 200px;
 }
+
+.bulletin-link {
+    text-decoration: none; /* Removes the underline */
+    color: inherit;      /* Inherits the color from the parent element, so the text won't be blue */
+}
