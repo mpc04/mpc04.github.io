@@ -22,3 +22,15 @@ navToggle.addEventListener('keydown', (e) => {
     navToggle.click();
   }
 });
+
+function setTheme(theme) {
+    localStorage.setItem('userTheme', theme);
+    document.body.className = theme;
+}
+
+
+window.addEventListener('load', function() {
+
+    const savedTheme = localStorage.getItem('userTheme') || 'light';
+    document.body.className = savedTheme;
+});
