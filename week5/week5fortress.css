@@ -239,3 +239,46 @@ main section {
   color: #777;
   margin-top: 10px;
 }
+/* --- Default (Light) Theme Styles --- */
+body.light {
+    background-color: #ffffff; /* White background */
+    color: #333333; /* Dark text */
+}
+
+/* --- Dark Theme Styles --- */
+body.dark {
+    background-color: #333333; /* Dark background */
+    color: #ffff; /* White text */
+    #home-bulletin {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  background-color: #5C5B5B;
+}
+
+#events {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  background-color: #5C5B5B;
+}
+
+#resources {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  background-color: #5C5B5B;
+}
+
+#houses {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+  background-color: #5C5B5B;
+}
+#contact {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  background-color: #5C5B5B;
+}
+}
+
+/* You would add more specific selectors here, e.g.,
+   body.dark .header { background-color: #555; }
+*/

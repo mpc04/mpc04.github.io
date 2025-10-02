@@ -12,6 +12,7 @@
   
   <link rel="stylesheet" href="week5fortress.css" />
   <script src="week5fortress.js" defer></script>
+  <script src="theme-switcher.js" defer></script>
 </head>
 <body>
   <nav class="main-nav">
@@ -94,6 +95,21 @@
       <p>Want to get in touch with your neighbors or share an idea for the site?</p>
       <p>Email: <a href="mailto:fortresshub@gmail.com">fortresshub@gmail.com</a></p>
     </section>
+    <script>
+// Save user's theme choice
+function setTheme(theme) {
+    localStorage.setItem('userTheme', theme);
+    document.body.className = theme;
+}
+
+// Load saved theme on page load
+window.addEventListener('load', function() {
+    const savedTheme = localStorage.getItem('userTheme') || 'light';
+    document.body.className = savedTheme;
+});
+</script>
+<button onclick="setTheme('light')">Light Theme ☀️</button>
+<button onclick="setTheme('dark')">Dark Theme 🌙</button>
   </main>
 </body>
 </html>
