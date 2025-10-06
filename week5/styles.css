@@ -1,0 +1,127 @@
+/* --- Font Imports from Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&family=Sometype+Mono:ital,wght@0,400..700;1,400..700&family=Sulphur+Point:wght@300;400;700&display=swap');
+
+/* Base styling for body text */
+body {
+    font-family: 'Sometype Mono', monospace;
+    transition: background-color 0.3s, color 0.3s;
+    /* Default to light theme background/color, overwritten by body.dark */
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* Specific styling for the navigation brand text */
+.nav-brand {
+    font-family: 'Jacquard 12', system-ui;
+    font-size: 3em; /* Matched size from your CSS */
+    font-weight: bold;
+}
+
+/* Styling for all headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sulphur Point', sans-serif;
+    font-weight: 700;
+}
+h2 {
+    font-size: 1.8em;
+}
+h3 {
+    font-size: 1.5em;
+}
+
+/* Navigation Menu Styling */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+/* Custom styles for the navigation links/menu */
+.nav-menu-desktop {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+/* Styling for <a> tags inside both desktop and mobile menus */
+.nav-menu-desktop a, .nav-menu-flyout a {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+}
+
+.nav-menu-desktop a:hover, .nav-menu-flyout a:hover {
+    background-color: #34495e;
+    border-radius: 5px;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 40px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.hamburger {
+    background-color: white;
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* Media Query for Responsive Navigation (Exact match to your provided query) */
+@media screen and (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+    .nav-menu-desktop {
+        display: none; /* Hide desktop menu on mobile */
+    }
+
+    .nav-menu-flyout {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #2c3e50;
+        padding: 1rem;
+    }
+
+    .nav-menu-flyout.show {
+        display: flex;
+    }
+}
+
+/* CSS Grid Layout and Box Styling (Applying base section styling) */
+main {
+    /* Keep vertical flow for now, but apply general padding */
+    padding: 20px;
+}
+
+/* Base styling for all grid sections */
+main section {
+    background-color: #f8f8f8;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Dark Theme Styles --- */
+body.dark {
+    background-color: #333333; /* Dark background */
+    color: #ffff; /* White text */
+}
+
+/* Dark mode overrides for sections */
+body.dark main section {
+    background-color: #5C5B5B;
+}

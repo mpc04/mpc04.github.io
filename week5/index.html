@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Fortress Hub</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen">
+
+    <!-- Header (Responsive Navigation) -->
+    <header id="site-header" class="main-nav sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 w-full">
+            <span class="nav-brand">The Fortress Hub</span>
+            
+            <!-- Desktop/Tablet Menu (Visible md and up) -->
+            <nav class="hidden md:flex space-x-4 nav-menu-desktop">
+                <a href="week5fortress.html">Home</a>
+                <a href="communitybulletin.html">Community Bulletin</a>
+                <a href="#privacy">Privacy</a> 
+                <a href="#events">Events</a>
+                <a href="#resources">Resources</a>
+                <a href="#houses">House Profiles</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle (Visible only below md) -->
+            <button id="nav-toggle" class="nav-toggle">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Flyout (Initial state hidden, shown by JS) -->
+        <nav id="nav-menu" class="nav-menu-flyout md:hidden absolute w-full transition-all duration-300">
+            <a href="week5fortress.html" class="block py-2">Home</a>
+            <a href="communitybulletin.html" class="block py-2">Community Bulletin</a>
+            <a href="#privacy" class="block py-2">Privacy</a>
+            <a href="#events" class="block py-2">Events</a>
+            <a href="#resources" class="block py-2">Resources</a>
+            <a href="#houses" class="block py-2">House Profiles</a>
+            <a href="#contact" class="block py-2">Contact</a>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-10 space-y-12">
+        
+        <!-- Privacy & Ethics Component -->
+        <section id="privacy" class="shadow-lg transition-colors duration-300">
+            <h2 class="mb-4 border-b pb-2 text-indigo-700 dark:text-indigo-400">Privacy Statement</h2>
+            <div id="privacy-statement" class="text-base leading-relaxed space-y-4">
+                
+                <h3 class="font-bold">What Data We Collect</h3>
+                <p>We collect two types of data: 1) **Form Data** (like the name and email you voluntarily enter below) and 2) **User Interaction Data** (specifically, your chosen theme preference—Light or Dark Mode). We **do not** collect sensitive personal information, IP addresses, or location data.</p>
+                
+                <h3 class="font-bold">Why We Collect It</h3>
+                <p>We collect this data *only* to make your experience better. The **Form Data** allows us to pre-fill forms, saving you time across sessions. The **Theme Preference** allows the website to load with your preferred look, improving usability and reducing eye strain.</p>
+
+                <h3 class="font-bold">Storage & Expiration</h3>
+                <p>All data is stored **locally** in your browser's `localStorage` system. No data is sent to our servers. We store simple key-value pairs along with a timestamp. This data is automatically kept for a maximum of **7 days**, after which it is deleted to ensure data minimisation and timely cleanup.</p>
+                
+                <h3 class="font-bold">User Controls Over Data</h3>
+                <p>You have complete control. You can use the **"Clear All Data"** button below to instantly delete all information we have stored. Additionally, you can **opt out** of data collection entirely by unchecking the "Enable Local Data Saving" box, in which case nothing will be saved, and the data will be immediately removed.</p>
+            </div>
+        </section>
+
+        <!-- Data Persistence Controls -->
+        <section id="data" class="shadow-lg transition-colors duration-300">
+            <h2 class="mb-4 border-b pb-2 text-indigo-700 dark:text-indigo-400">Data Persistence & Controls</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Theme Preference Control -->
+                <div class="p-4 border rounded-lg bg-gray-50 dark:bg-black/20">
+                    <h3 class="font-semibold mb-2">User Preferences</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Your preferred theme is saved locally.</p>
+                    <button id="theme-toggle" class="w-full py-2 px-4 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white font-medium transition duration-200 shadow-md">
+                        Toggle Theme: <span id="current-theme">Light</span>
+                    </button>
+                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Data Status: <span id="data-save-status" class="font-bold"></span></p>
+                </div>
+
+                <!-- Form Data Persistence -->
+                <div class="p-4 border rounded-lg bg-gray-50 dark:bg-black/20">
+                    <h3 class="font-semibold mb-3">Form Data Storage</h3>
+                    <form id="user-form" class="space-y-3">
+                        <input type="text" id="user-name" placeholder="Your Name" class="w-full p-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <input type="email" id="user-email" placeholder="Your Email" class="w-full p-2 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <button type="submit" class="w-full py-2 px-4 rounded-lg bg-green-500 hover:bg-green-600 text-white font-medium transition duration-200 shadow-md">
+                            Save Form Data
+                        </button>
+                    </form>
+                    <p id="form-message" class="mt-2 text-sm text-green-700 dark:text-green-400"></p>
+                </div>
+            </div>
+
+            <!-- User Controls for Managing Data & Opt-Out -->
+            <div class="mt-6 p-4 border rounded-lg bg-red-50 dark:bg-black/20 border-red-200 dark:border-red-800">
+                <h3 class="font-semibold text-red-700 dark:text-red-400 mb-3">Data Management Controls</h3>
+                
+                <!-- Opt Out -->
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" id="opt-in-data" checked class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                    <label for="opt-in-data" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                        Enable Local Data Saving (Opt-in)
+                    </label>
+                </div>
+
+                <!-- Clear Data -->
+                <button id="clear-data-button" class="py-2 px-4 rounded-lg bg-red-600 hover:bg-red-700 text-white font-medium transition duration-200 shadow-md">
+                    Clear All My Stored Data
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Application Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
