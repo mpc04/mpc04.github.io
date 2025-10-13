@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Community Bulletin</title>
+  <title>The Fortress Hub - Community Bulletin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&family=Sometype+Mono&display=swap" rel="stylesheet"/>
@@ -22,10 +22,14 @@
     <ul class="nav-menu">
       <li><a href="week5fortress.html">Home</a></li>
       <li><a href="communitybulletin.html">Community Bulletin</a></li>
-      <li><a href="#events">Events</a></li>
-      <li><a href="#resources">Resources</a></li>
-      <li><a href="#houses">House Profiles</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="house-profiles.html">House Profiles</a></li>
+      <!-- ADDED: Dark/Light Mode Toggle -->
+      <li><button id="theme-toggle" class="nav-button" aria-label="Toggle dark and light mode">
+          <span class="light-icon">☀️</span>
+          <span class="dark-icon">🌙</span>
+      </button></li>
   </ul>
   </nav>
 
@@ -44,6 +48,7 @@
       </div>
 
       <div id="posts-container">
+        <!-- These posts will use the CSS rule that makes the title dark blue in dark mode -->
         <article class="bulletin-post">
           <h4>🐻‍❄️ Bear Sighting!</h4>
           <p>Just saw a big bear walking near Euclid Ave. Be alert if you're out late. Stay safe!</p>

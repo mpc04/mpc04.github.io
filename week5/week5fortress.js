@@ -1,3 +1,4 @@
+// --- Navigation Toggle Logic (Keep existing) ---
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
 
@@ -15,22 +16,44 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Keyboard support
-navToggle.addEventListener('keydown', (e) => {
-  if (e.key === "Enter" || e.key === " ") {
-    e.preventDefault();
-    navToggle.click();
-  }
-});
+// --- Theme Switching Logic [cite: 3, 4] ---
 
+const themeToggle = document.getElementById('theme-toggle');
+
+/**
+ * Sets the theme class on the body and saves the preference to localStorage.
+ * @param {string} theme - 'light' or 'dark'
+ */
 function setTheme(theme) {
-    localStorage.setItem('userTheme', theme);
-    document.body.className = theme;
+    // Apply the theme class to the <body> element 
+    document.body.className = theme; 
+    
+    // Save the user's theme choice for data integration [cite: 29]
+    localStorage.setItem('userTheme', theme); 
 }
 
+/**
+ * Toggles the current theme and updates the local storage.
+ */
+function toggleTheme() {
+    const currentTheme = document.body.className === 'dark' ? 'dark' : 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+}
 
-window.addEventListener('load', function() {
-
+/**
+ * Loads the saved theme on page load.
+ */
+function loadTheme() {
+    // Check for saved theme in localStorage
     const savedTheme = localStorage.getItem('userTheme') || 'light';
-    document.body.className = savedTheme;
-});
+    setTheme(savedTheme);
+}
+
+// Event listener for the theme toggle button (on all pages)
+if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+}
+
+// Load the theme when the page is fully loaded
+window.addEventListener('load', loadTheme);

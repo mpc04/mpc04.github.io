@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Fortress Hub</title>
+  <title>The Fortress Hub - Home</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,8 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@300;400;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="week5fortress.css" />
-  <script src="week5fortress.js" defer></script>
-  <script src="theme-switcher.js" defer></script>
+  <script src="week5fortress.js" defer></script> 
 </head>
 <body>
   <nav class="main-nav">
@@ -25,10 +24,13 @@
     <ul class="nav-menu">
       <li><a href="week5fortress.html">Home</a></li>
       <li><a href="communitybulletin.html">Community Bulletin</a></li>
-      <li><a href="index.html">Privacy</a></li>
-      <li><a href="#events">Events</a></li>
-      <li><a href="#resources">Resources</a></li>
-      <li><a href="#houses">House Profiles</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="house-profiles.html">House Profiles</a></li> 
+      <li><button id="theme-toggle" class="nav-button" aria-label="Toggle dark and light mode">
+          <span class="light-icon">☀️</span>
+          <span class="dark-icon">🌙</span>
+      </button></li>
     </ul>
   </nav>
 
@@ -45,71 +47,35 @@
         </section>
     </a>
 
-    <section id="events">
-      <h2>Upcoming Events</h2>
-      <article>
-        <h3>🎉 Julianna's 22nd Birthday Tomato Party</h3>
-        <p>Date: Saturday, Sept 28th</p>
-        <p>Location: The Fortress</p>
-        <p>Details: Expect tomatoes, music, and a whole lot of fun. Don’t wear white!</p>
-      </article>
-      <article>
-        <h3>👨‍👩‍👧 The Fort's Parent Party</h3>
-        <p>Date: Sunday, Oct 6th</p>
-        <p>Location: The Fortress Backyard</p>
-        <p>Details: A friendly gathering for parents to meet each other and see what the community is about.</p>
-      </article>
-    </section>
+    <a href="events.html" class="home-link">
+      <section id="events">
+        <h2>Upcoming Events</h2>
+        <p>View all the latest party invites and community gatherings on the dedicated Events page!</p>
+        <p>🥳 **Next Up: The Estate Cocktail Party**</p>
+      </section>
+    </a>
 
-    <section id="resources">
-      <h2>Community Resources</h2>
-      <ul>
-        <li>📘 How to register a party with CU</li>
-        <li>🏠 Housing codes and safety guidelines</li>
-        <li>🚓 Local emergency contacts</li>
-      </ul>
-    </section>
+    <a href="resources.html" class="home-link">
+      <section id="resources">
+        <h2>Community Resources</h2>
+        <p>Find important contact numbers, how-to guides, and official house information on the Resources page!</p>
+        <p>☎️ **Quick Links: Xcel Energy & Police Party Registration**</p>
+      </section>
+    </a>
 
-    <section id="houses">
-      <h2>House Profiles</h2>
-      <article>
-        <h3>The Fortress</h3>
-        <p>Home to 8 strong women who plan fun events, eat good food, and make banners.</p>
-      </article>
-      <article>
-        <h3>The Estate</h3>
-        <p>A lively spot known for late-night jam sessions and open-door dinners.</p>
-      </article>
-      <article>
-        <h3>The Big House</h3>
-        <p>The social hub of the block — always hosting movie nights and game days.</p>
-      </article>
-      <article>
-        <h3>The Dog House</h3>
-        <p>Friendly neighbors (and their dogs) who love to BBQ and hang out on the porch.</p>
-      </article>
-    </section>
+    <a href="house-profiles.html" class="home-link">
+      <section id="houses">
+        <h2>House Profiles</h2>
+        <p>Get to know your neighbors! See who lives where, their favorite bars, and their house quotes.</p>
+        <p>🏰 **The Fortress: "8 strong women, 8 stronger drinks"**</p>
+      </section>
+    </a>
 
     <section id="contact">
       <h2>Contact</h2>
       <p>Want to get in touch with your neighbors or share an idea for the site?</p>
       <p>Email: <a href="mailto:fortresshub@gmail.com">fortresshub@gmail.com</a></p>
     </section>
-    <script>
-// Save user's theme choice
-function setTheme(theme) {
-    localStorage.setItem('userTheme', theme);
-    document.body.className = theme;
-}
-
-// Load saved theme on page load
-window.addEventListener('load', function() {
-    const savedTheme = localStorage.getItem('userTheme') || 'light';
-    document.body.className = savedTheme;
-});
-</script>
-<button onclick="setTheme('light')">Light Theme ☀️</button>
-<button onclick="setTheme('dark')">Dark Theme 🌙</button>
   </main>
 </body>
 </html>

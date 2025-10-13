@@ -27,14 +27,39 @@ h3 {
   font-size: 1.5em;
 }
 
+/* --- CSS Variables for Theming --- */
+:root {
+    --bg-primary: #ffffff; /* Main body background */
+    --text-primary: #333333; /* Main body text color (Black in light mode) */
+    --nav-bg: #2c3e50;
+    --nav-text: #fff;
+    --nav-button-bg-light: #444; /* Darker background for light mode toggle */
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --card-bg-default: #f8f8f8; /* Default background for new pages/posts (Light Gray) */
+    --bulletin-post-bg: #fff;
+    --bulletin-post-border: #2c3e50;
+    --bulletin-dark-text-override: #333333; /* Default text color for bulletin */
+}
+
+/* Apply base variables */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s, color 0.3s;
+}
+
 /* Navigation Menu Styling */
 .main-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #2c3e50;
-  color: #fff;
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+}
+/* Ensure the brand text is always visible against the dark nav bar */
+.nav-brand {
+    color: var(--nav-text); 
 }
 
 .nav-menu {
@@ -45,7 +70,7 @@ h3 {
 
 .nav-menu li a {
   text-decoration: none;
-  color: white;
+  color: var(--nav-text); 
   padding: 0.5rem 1rem;
   transition: background-color 0.3s;
 }
@@ -55,24 +80,216 @@ h3 {
   border-radius: 5px;
 }
 
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 40px;
-  height: 30px;
-  background: none;
-  border: none;
-  cursor: pointer;
+/* --- Theme Toggle Button Styling --- */
+.nav-button {
+    background-color: var(--nav-button-bg-light); /* Darker background for toggle */
+    border: none; 
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1; 
+    color: var(--nav-text);
+    transition: background-color 0.3s;
 }
 
-.hamburger {
-  background-color: white;
-  height: 4px;
-  border-radius: 2px;
+.nav-button:hover {
+    background-color: #555; /* Slightly darker hover */
+    border-radius: 5px;
 }
 
-/* Media Query for Responsive Navigation */
+/* Hide the icon that doesn't match the current theme */
+.nav-button .dark-icon { display: none; }
+body.dark .nav-button .dark-icon { display: inline; }
+body.dark .nav-button .light-icon { display: none; }
+
+/* ... (Keep existing .nav-toggle, .hamburger, and @media screen styles) ... */
+
+/* --- Home Page Specific Grid Layout --- */
+main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+/* Base styling for all grid sections */
+main section {
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  /* Default background for sections on new pages */
+  background-color: var(--card-bg-default); 
+  transition: all 0.3s;
+}
+
+/* Home Page Specific Light Mode Colors (KEEPING ORIGINAL DESIGN) */
+/* The sections retain their original colorful backgrounds in light mode */
+#home-bulletin { background-color: #e6f7ff; grid-column: 1 / 2; grid-row: 1 / 2; }
+#events { background-color: #ffe6f7; grid-column: 2 / 3; grid-row: 1 / 3; }
+#resources { background-color: #e6fff2; grid-column: 1 / 2; grid-row: 2 / 3; }
+#houses { background-color: #fff2e6; grid-column: 1 / 2; grid-row: 3 / 4; }
+#contact { background-color: #f7e6ff; grid-column: 2 / 3; grid-row: 3 / 4; }
+
+/* Hover effects for main sections (light mode) */
+#home-bulletin:hover { background-color: #d6f0ff; cursor: pointer; }
+#events:hover { background-color: #ffdaef; }
+#resources:hover { background-color: #d6ffe9; }
+#houses:hover { background-color: #ffebd6; }
+#contact:hover { background-color: #f1d6ff; }
+
+
+/* --- Dark Theme Overrides for ALL Pages (Implementing Dark Gray) --- */
+body.dark {
+    --bg-primary: #333333;
+    --text-primary: #f0f0f0; /* White text for dark mode */
+    --nav-bg: #1c1c1c;
+    --nav-text: #f0f0f0;
+    --nav-button-bg-light: #555; 
+    --card-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    --card-bg-default: #404040; /* DARK GRAY for all cards/sections */
+    --bulletin-post-bg: #4a4a4a;
+    --bulletin-post-border: #f0f0f0;
+    /* CORRECTED: Set Bulletin text override to White (var(--text-primary)) */
+    --bulletin-dark-text-override: var(--text-primary); 
+}
+
+/* FIX: Explicitly target the Home Page IDs to override the light mode background-color */
+body.dark #home-bulletin,
+body.dark #events,
+body.dark #resources,
+body.dark #houses,
+body.dark #contact {
+    background-color: var(--card-bg-default); /* Apply Dark Gray */
+    color: var(--text-primary); /* Ensure text is white */
+}
+
+/* FIX: Override the hover colors in dark mode to prevent a flash of light color */
+body.dark #home-bulletin:hover,
+body.dark #events:hover,
+body.dark #resources:hover,
+body.dark #houses:hover,
+body.dark #contact:hover {
+    background-color: #555555; /* Slightly lighter gray on hover for contrast */
+}
+
+/* Explicitly set all heading colors to the dark mode text color */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6 {
+    color: var(--text-primary);
+}
+/* Override the brand text color to use the white nav-text variable */
+body.dark .nav-brand {
+    color: var(--nav-text);
+}
+
+
+/* Dark Theme: Apply consistent dark gray background and text color to all sections/cards */
+body.dark main section,
+body.dark .event-card, 
+body.dark .resource-card, 
+body.dark .profile-card,
+body.dark #full-bulletin-board {
+  background-color: var(--card-bg-default);
+  color: var(--text-primary);
+}
+/* Ensure the text color is applied to the house quotes in dark mode */
+body.dark .house-quote {
+    color: var(--text-primary);
+}
+
+
+/* Dark Theme: Bulletin Post Text Color Requirement (Now set to White via var(--text-primary)) */
+body.dark #full-bulletin-board h2,
+body.dark .bulletin-post h4 {
+    color: var(--bulletin-dark-text-override); 
+}
+body.dark .bulletin-post {
+    border-left: 5px solid var(--bulletin-post-border);
+    /* The background of the individual post card is set to a slightly different gray */
+    background-color: var(--bulletin-post-bg); 
+}
+
+
+/* --- New Page Layouts (Events & Resources) --- */
+
+/* Use general grid for new pages */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* Card Styling for New Pages */
+.event-card, .profile-card, .resource-card {
+    background-color: var(--card-bg-default);
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    padding: 15px;
+    overflow: hidden;
+    text-align: center;
+    color: var(--text-primary); /* Ensure text is correct color in dark mode */
+}
+
+/* --- House Profile Colorful Overrides (Light Mode ONLY) --- */
+#fortress-profile { background-color: #ffe6f7; }
+#estate-profile { background-color: #e6fff2; }
+#doghouse-profile { background-color: #fff2e6; }
+#bighouse-profile { background-color: #e6f7ff; }
+
+/* When in dark mode, override these colors back to the dark gray card default */
+body.dark #fortress-profile,
+body.dark #estate-profile,
+body.dark #doghouse-profile,
+body.dark #bighouse-profile {
+    background-color: var(--card-bg-default);
+}
+
+
+/* Event Card Image Styling */
+.event-invite-img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* --- Fix Hyperlink Appearance --- */
+.home-link, .bulletin-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color (black/white) */
+}
+/* Ensure links *within* the bulletin board/resources/event cards are visible */
+.resource-card a, .post-form a {
+    color: var(--text-primary); 
+    text-decoration: underline; /* Keep underline for actual external links */
+    font-weight: 700;
+}
+
+/* --- Community Bulletin Centering and Width Fix --- */
+.bulletin-page {
+    /* Override existing styles to use auto margins for centering */
+    margin: 0 auto;
+    /* Set a reasonable maximum width for desktop view (e.g., 1000px) */
+    max-width: 1000px; 
+    padding: 20px; 
+}
+/* Ensure the section inside the main content expands */
+#full-bulletin-board {
+    width: 100%;
+    max-width: none; 
+}
+
+/* Existing Media Query for Responsive Navigation */
 @media screen and (max-width: 768px) {
   .nav-toggle {
     display: flex;
@@ -85,200 +302,13 @@ h3 {
     top: 60px;
     left: 0;
     width: 100%;
-    background-color: #2c3e50;
+    background-color: var(--nav-bg); /* Use theme variable */
     padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
   }
 
   .nav-menu.show {
     display: flex;
   }
 }
-
-/* CSS Grid Layout and Box Styling */
-main {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-gap: 20px;
-  padding: 20px;
-}
-
-/* Base styling for all grid sections */
-main section {
-  background-color: #f8f8f8;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Individual colorful backgrounds for each section */
-#home-bulletin {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  background-color: #e6f7ff;
-}
-
-#events {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
-  background-color: #ffe6f7;
-}
-
-#resources {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-  background-color: #e6fff2;
-}
-
-#houses {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-  background-color: #fff2e6;
-}
-
-#contact {
-  grid-column: 2 / 3;
-  grid-row: 3 / 4;
-  background-color: #f7e6ff;
-}
-
-/* Hover effects for main sections */
-#home-bulletin:hover {
-  background-color: #d6f0ff;
-  cursor: pointer;
-}
-
-#events:hover {
-  background-color: #ffdaef;
-}
-
-#resources:hover {
-  background-color: #d6ffe9;
-}
-
-#houses:hover {
-  background-color: #ffebd6;
-}
-
-#contact:hover {
-  background-color: #f1d6ff;
-}
-
-/* Styling for the Bulletin Board on the home page */
-.bulletin-link {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Community Bulletin Page Specific Styles */
-.bulletin-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-}
-
-#full-bulletin-board {
-  width: 100%;
-  max-width: 900px;
-  background-color: #e6f7ff;
-}
-
-/* Post Form Styling */
-.post-form {
-  background-color: #f0f8ff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.post-form input,
-.post-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.post-form button {
-  width: 100%;
-  padding: 12px;
-  background-color: #2c3e50;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.post-form button:hover {
-  background-color: #34495e;
-}
-
-/* Individual Post Styling */
-.bulletin-post {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 15px;
-  border-left: 5px solid #2c3e50;
-}
-
-.bulletin-post h4 {
-  margin-top: 0;
-  color: #2c3e50;
-}
-
-.bulletin-post span {
-  display: block;
-  font-size: 0.8em;
-  color: #777;
-  margin-top: 10px;
-}
-/* --- Default (Light) Theme Styles --- */
-body.light {
-    background-color: #ffffff; /* White background */
-    color: #333333; /* Dark text */
-}
-
-/* --- Dark Theme Styles --- */
-body.dark {
-    background-color: #333333; /* Dark background */
-    color: #ffff; /* White text */
-    #home-bulletin {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  background-color: #5C5B5B;
-}
-
-#events {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
-  background-color: #5C5B5B;
-}
-
-#resources {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-  background-color: #5C5B5B;
-}
-
-#houses {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-  background-color: #5C5B5B;
-}
-#contact {
-  grid-column: 2 / 3;
-  grid-row: 3 / 4;
-  background-color: #5C5B5B;
-}
-}
-
-/* You would add more specific selectors here, e.g.,
-   body.dark .header { background-color: #555; }
-*/
