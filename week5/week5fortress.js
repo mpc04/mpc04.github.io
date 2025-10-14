@@ -1,4 +1,4 @@
-// --- Navigation Toggle Logic (Keep existing) ---
+// Navigation Toggle Logic
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
 
@@ -8,7 +8,7 @@ navToggle.addEventListener('click', () => {
   navMenu.classList.toggle('show');
 });
 
-// Optional: close menu when clicking outside
+// Close menu when clicking outside
 document.addEventListener('click', (e) => {
   if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
     navMenu.classList.remove('show');
@@ -16,7 +16,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// --- Theme Switching Logic [cite: 3, 4] ---
+// Theme Switching Logic
 
 const themeToggle = document.getElementById('theme-toggle');
 
@@ -28,7 +28,7 @@ function setTheme(theme) {
     // Apply the theme class to the <body> element 
     document.body.className = theme; 
     
-    // Save the user's theme choice for data integration [cite: 29]
+    // Save the user's theme choice for data integration 
     localStorage.setItem('userTheme', theme); 
 }
 
