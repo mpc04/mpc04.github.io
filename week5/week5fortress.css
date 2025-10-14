@@ -27,7 +27,7 @@ h3 {
   font-size: 1.5em;
 }
 
-/* --- CSS Variables for Theming --- */
+/* CSS Variables for Theming */
 :root {
     --bg-primary: #ffffff; /* Main body background */
     --text-primary: #333333; /* Main body text color (Black in light mode) */
@@ -80,7 +80,7 @@ body {
   border-radius: 5px;
 }
 
-/* --- Theme Toggle Button Styling --- */
+/* Theme Toggle Button Styling */
 .nav-button {
     background-color: var(--nav-button-bg-light); /* Darker background for toggle */
     border: none; 
@@ -103,9 +103,9 @@ body {
 body.dark .nav-button .dark-icon { display: inline; }
 body.dark .nav-button .light-icon { display: none; }
 
-/* ... (Keep existing .nav-toggle, .hamburger, and @media screen styles) ... */
 
-/* --- Home Page Specific Grid Layout --- */
+
+/* Home Page Specific Grid Layout */
 main {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -139,7 +139,7 @@ main section {
 #contact:hover { background-color: #f1d6ff; }
 
 
-/* --- Dark Theme Overrides for ALL Pages (Implementing Dark Gray) --- */
+/* Dark Theme Overrides for ALL Pages (Implementing Dark Gray) */
 body.dark {
     --bg-primary: #333333;
     --text-primary: #f0f0f0; /* White text for dark mode */
@@ -150,11 +150,11 @@ body.dark {
     --card-bg-default: #404040; /* DARK GRAY for all cards/sections */
     --bulletin-post-bg: #4a4a4a;
     --bulletin-post-border: #f0f0f0;
-    /* CORRECTED: Set Bulletin text override to White (var(--text-primary)) */
+    /* Set Bulletin text override to White (var(--text-primary)) */
     --bulletin-dark-text-override: var(--text-primary); 
 }
 
-/* FIX: Explicitly target the Home Page IDs to override the light mode background-color */
+/* Explicitly target the Home Page IDs to override the light mode background-color */
 body.dark #home-bulletin,
 body.dark #events,
 body.dark #resources,
@@ -164,7 +164,7 @@ body.dark #contact {
     color: var(--text-primary); /* Ensure text is white */
 }
 
-/* FIX: Override the hover colors in dark mode to prevent a flash of light color */
+/* Override the hover colors in dark mode to prevent a flash of light color */
 body.dark #home-bulletin:hover,
 body.dark #events:hover,
 body.dark #resources:hover,
@@ -215,8 +215,6 @@ body.dark .bulletin-post {
 }
 
 
-/* --- New Page Layouts (Events & Resources) --- */
-
 /* Use general grid for new pages */
 .grid-layout {
     display: grid;
@@ -235,10 +233,10 @@ body.dark .bulletin-post {
     padding: 15px;
     overflow: hidden;
     text-align: center;
-    color: var(--text-primary); /* Ensure text is correct color in dark mode */
+    color: var(--text-primary); 
 }
 
-/* --- House Profile Colorful Overrides (Light Mode ONLY) --- */
+/* House Profile Colorful Overrides (Light Mode ONLY) */
 #fortress-profile { background-color: #ffe6f7; }
 #estate-profile { background-color: #e6fff2; }
 #doghouse-profile { background-color: #fff2e6; }
@@ -263,23 +261,23 @@ body.dark #bighouse-profile {
     margin-bottom: 10px;
 }
 
-/* --- Fix Hyperlink Appearance --- */
+/* Fix Hyperlink Appearance */
 .home-link, .bulletin-link {
     text-decoration: none; /* Remove underline */
-    color: inherit; /* Inherit text color (black/white) */
+    color: inherit; 
 }
 /* Ensure links *within* the bulletin board/resources/event cards are visible */
 .resource-card a, .post-form a {
     color: var(--text-primary); 
-    text-decoration: underline; /* Keep underline for actual external links */
+    text-decoration: underline; 
     font-weight: 700;
 }
 
-/* --- Community Bulletin Centering and Width Fix --- */
+/* Community Bulletin Centering and Width Fix */
 .bulletin-page {
     /* Override existing styles to use auto margins for centering */
     margin: 0 auto;
-    /* Set a reasonable maximum width for desktop view (e.g., 1000px) */
+    /* Set a maximum width for desktop view (e.g., 1000px) */
     max-width: 1000px; 
     padding: 20px; 
 }
