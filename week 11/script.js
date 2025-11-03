@@ -113,7 +113,6 @@ function handleSearch() {
 }
 
 
-
 searchButton.addEventListener('click', handleSearch);
 
 searchInput.addEventListener('keypress', function(e) {
