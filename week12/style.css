@@ -1,0 +1,116 @@
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #32936F; /* Custom button color */
+    border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+    background-color: #403F4C; /* Custom background color */
+}
+
+body {
+    background-color: #403F4C; /* Custom background color */
+    color: #E4E6C3; /* Custom font color */
+    font-family: 'Libre Baskerville', serif;
+}
+
+/* Custom font for large headers */
+h1, h2 {
+    font-family: 'Tangerine', cursive;
+    color: #E4E6C3; /* Custom font color for headers */
+}
+
+h1 {
+    font-size: 7rem; /* Larger for h1 */
+    line-height: 1;
+}
+
+h2 {
+    font-size: 7rem; /* Larger for h2 */
+    line-height: 1;
+}
+
+h3 {
+    font-family: 'Libre Baskerville', serif; /* Subheader font */
+    color: #E4E6C3;
+}
+
+/* Override Tailwind defaults for inputs and buttons with custom colors */
+.custom-input {
+    background-color: #555462; /* Slightly lighter than background for input fields */
+    color: #E4E6C3;
+    border-color: #32936F;
+}
+.custom-input::placeholder {
+    color: #A0A0AA; /* Lighter placeholder text */
+}
+.custom-input:focus {
+    border-color: #E4E6C3;
+    box-shadow: 0 0 0 2px rgba(50, 147, 111, 0.5); /* Green glow on focus */
+}
+
+.custom-button {
+    background-color: #32936F; /* Custom button color */
+    color: #403F4C; /* Dark text on green button */
+}
+.custom-button:hover {
+    background-color: #2a7e5f; /* Darker green on hover */
+}
+
+.art-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Adjusted min-width for frames */
+    gap: 2.5rem; /* Increased gap for frames */
+}
+
+.card-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Padding for the frame's edges */
+}
+
+.frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none; /* Allows clicks to pass through to the card content */
+    z-index: 1;
+}
+
+/* Using local file references for frames */
+.horizontal-frame {
+    background-image: url('horizontal\ frame.png'); 
+    padding: 5%; 
+}
+
+.vertical-frame {
+    background-image: url('vertical\ frame.png'); 
+    padding: 5%; 
+}
+
+.artwork-card {
+    background-color: #555462; /* Slightly lighter background for cards */
+    border-color: #6a6977;
+    color: #E4E6C3;
+    position: relative;
+    z-index: 2; /* Ensures card content is above the frame */
+    margin: 0 10%; /* To visually fit inside the frame area better */
+    flex-grow: 1;
+}
+
+.artwork-image-wrapper {
+    background-color: #333; /* Darker placeholder background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
