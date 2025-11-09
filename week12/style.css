@@ -1,69 +1,67 @@
-/* Custom scrollbar styling */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #32936F; /* Custom button color */
+    background-color: #32936F; 
     border-radius: 4px;
 }
 ::-webkit-scrollbar-track {
-    background-color: #403F4C; /* Custom background color */
+    background-color: #403F4C; 
 }
 
 body {
-    background-color: #403F4C; /* Custom background color */
-    color: #E4E6C3; /* Custom font color */
+    background-color: #403F4C; 
+    color: #E4E6C3; 
     font-family: 'Libre Baskerville', serif;
 }
 
-/* Custom font for large headers */
 h1, h2 {
     font-family: 'Libre Baskerville', serif;
-    color: #E4E6C3; /* Custom font color for headers */
+    color: #E4E6C3; 
 }
 
 h1 {
-    font-size: 7rem; /* Larger for h1 */
+    font-size: 7rem; 
     line-height: 1;
 }
 
 h2 {
-    font-size: 7rem; /* Larger for h2 */
+    font-size: 7rem; 
     line-height: 1;
 }
 
 h3 {
-    font-family: 'Libre Baskerville', serif; /* Subheader font */
+    font-family: 'Libre Baskerville', serif; 
     color: #E4E6C3;
 }
 
-/* Override Tailwind defaults for inputs and buttons with custom colors */
+
 .custom-input {
-    background-color: #555462; /* Slightly lighter than background for input fields */
+    background-color: #555462;
     color: #E4E6C3;
     border-color: #32936F;
 }
 .custom-input::placeholder {
-    color: #A0A0AA; /* Lighter placeholder text */
+    color: #A0A0AA; 
 }
 .custom-input:focus {
     border-color: #E4E6C3;
-    box-shadow: 0 0 0 2px rgba(50, 147, 111, 0.5); /* Green glow on focus */
+    box-shadow: 0 0 0 2px rgba(50, 147, 111, 0.5); 
 }
 
 .custom-button {
-    background-color: #32936F; /* Custom button color */
-    color: #403F4C; /* Dark text on green button */
+    background-color: #32936F; 
+    color: #403F4C; 
 }
 .custom-button:hover {
-    background-color: #2a7e5f; /* Darker green on hover */
+    background-color: #2a7e5f; 
 }
 
 .art-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Adjusted min-width for frames */
-    gap: 2.5rem; /* Increased gap for frames */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 2.5rem; 
 }
 
 .card-container {
@@ -71,7 +69,7 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px; /* Padding for the frame's edges */
+    padding: 20px; 
 }
 
 .frame {
@@ -82,11 +80,10 @@ h3 {
     height: 100%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    pointer-events: none; /* Allows clicks to pass through to the card content */
+    pointer-events: none; 
     z-index: 1;
 }
 
-/* Using local file references for frames */
 .horizontal-frame {
     background-image: url('horizontal\ frame.png'); 
     padding: 5%; 
@@ -98,17 +95,17 @@ h3 {
 }
 
 .artwork-card {
-    background-color: #555462; /* Slightly lighter background for cards */
+    background-color: #555462; 
     border-color: #6a6977;
     color: #E4E6C3;
     position: relative;
-    z-index: 2; /* Ensures card content is above the frame */
-    margin: 0 10%; /* To visually fit inside the frame area better */
+    z-index: 2; 
+    margin: 0 10%; 
     flex-grow: 1;
 }
 
 .artwork-image-wrapper {
-    background-color: #333; /* Darker placeholder background */
+    background-color: #333; 
     display: flex;
     justify-content: center;
     align-items: center;

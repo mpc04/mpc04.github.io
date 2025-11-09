@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Art more like...</title>
-    <!-- Load Tailwind CSS -->
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Google Fonts -->
+
     <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Link to External Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="min-h-screen p-4 sm:p-8">
@@ -21,7 +20,6 @@
             <div id="user-id-display" class="text-sm text-gray-400 mt-2">Initializing local storage...</div>
         </header>
 
-        <!-- Search Section -->
         <section class="mb-12 p-6 bg-transparent rounded-xl">
             <h2 class="font-bold mb-4 text-center">Find Artworks</h2>
             <div class="flex flex-col sm:flex-row gap-4">
@@ -36,7 +34,6 @@
             <p id="status-message" class="text-red-400 mt-2"></p>
         </section>
 
-        <!-- Search Results Section -->
         <section class="mb-12">
             <h2 class="font-bold mb-6 text-center">Search Results</h2>
             <div id="search-results" class="art-section min-h-48">
@@ -46,7 +43,6 @@
             </div>
         </section>
 
-        <!-- Favorites Section -->
         <section>
             <h2 id="favorites-title" class="font-bold mb-6 text-center">Your Saved Favorites (Loading...)</h2>
             <div id="favorites-list" class="art-section min-h-48">
@@ -58,7 +54,6 @@
 
     </div>
     
-    <!-- Link to External JavaScript -->
     <script type="module" src="script.js"></script>
 </body>
 </html>

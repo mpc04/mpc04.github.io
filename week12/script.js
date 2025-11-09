@@ -1,23 +1,17 @@
-// --- Core State and Configuration ---
 const STORAGE_KEY = 'aic_favorites_v1';
-let favoritesData = []; // In-memory cache of favorites
+let favoritesData = [];
 
-// Helper function for robust session ID generation
 const generateSessionId = () => {
-    // Use crypto.randomUUID() if available (modern browser standard)
     if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
         return crypto.randomUUID();
     }
-    // Fallback for environments where randomUUID is not available
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
 };
 
-// Use a random ID to simulate a session, even though persistence is local
 let currentUserId = generateSessionId(); 
 
-// Initialization function run on page load
 const setupLocalStorage = () => {
-    // Display a shortened Session ID as a user identifier
+
     const userIdDisplay = document.getElementById('user-id-display');
     if (userIdDisplay) {
         userIdDisplay.textContent = `Local Session ID: ${currentUserId.substring(0, 8)}... (Data saved in browser)`;
@@ -25,12 +19,10 @@ const setupLocalStorage = () => {
     loadFavorites();
 };
 
-// --- Local Storage Functions ---
 
 const getFavorites = () => {
     try {
         const data = localStorage.getItem(STORAGE_KEY);
-        // Ensure that the loaded data is an array
         const parsed = data ? JSON.parse(data) : [];
         return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
@@ -40,17 +32,20 @@ const getFavorites = () => {
 };
 
 const saveFavorites = (favorites) => {
+    const statusMessage = document.getElementById('status-message');
     try {
-        // Ensure favorites are sorted by timestamp (newest first) before saving
         favorites.sort((a, b) => b.timestamp - a.timestamp);
         
         localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
-        favoritesData = favorites; // Update in-memory cache
-        renderFavorites(favorites); // Refresh UI
+        favoritesData = favorites; 
+        renderFavorites(favorites);
+        
+        if (statusMessage) {
+            statusMessage.textContent = ''; 
+        }
+
     } catch (e) {
-        // If localStorage is full (QuotaExceededError) or other issue
         console.error("Error writing to localStorage (Quota likely exceeded):", e);
-        const statusMessage = document.getElementById('status-message');
         if (statusMessage) {
              statusMessage.textContent = 'Error: Failed to save favorite (Storage limit reached). Please remove old favorites.';
         }
@@ -63,43 +58,47 @@ const loadFavorites = () => {
     renderFavorites(loaded);
 };
 
-// Expose functions globally for use in HTML onclick attributes
 window.addFavorite = (artwork) => {
     const favorites = getFavorites();
+    const statusMessage = document.getElementById('status-message');
 
-    // Check if already exists
     if (favorites.some(fav => fav.id === artwork.id)) {
         console.warn("Artwork already favorited.");
+        if (statusMessage) statusMessage.textContent = `${artwork.title} is already saved in your favorites.`;
         return;
     }
 
-    // Add new favorite with necessary data and a timestamp
     favorites.push({ 
         id: artwork.id,
         title: artwork.title,
-        artist: artwork.artist_display, // Data saved to 'artist' key
+        artist: artwork.artist_display, 
         image_id: artwork.image_id,
         width: artwork.width,
         height: artwork.height,
-        timestamp: Date.now() // Use timestamp for sorting (newest first)
+        timestamp: Date.now() 
     });
     saveFavorites(favorites);
+    if (statusMessage) statusMessage.textContent = `${artwork.title} successfully added to favorites.`;
 };
 
 window.removeFavorite = (artworkId) => {
     let favorites = getFavorites();
     const initialLength = favorites.length;
+    const statusMessage = document.getElementById('status-message');
 
-    // FIX: Ensure artworkId is treated as a number for comparison
+    const artworkToRemove = favorites.find(fav => fav.id === Number(artworkId));
+    
     favorites = favorites.filter(fav => fav.id !== Number(artworkId));
 
     if (favorites.length < initialLength) {
         saveFavorites(favorites);
+        if (artworkToRemove && statusMessage) {
+            statusMessage.textContent = `${artworkToRemove.title} successfully removed from favorites.`;
+        }
+    } else if (statusMessage) {
+        statusMessage.textContent = "Error: Artwork could not be found to remove.";
     }
 };
-
-
-// --- AIC API Functions ---
 
 const BASE_API_URL = "https://api.artic.edu/api/v1/artworks/search";
 const IMAGE_BASE_URL = "https://www.artic.edu/iiif/2/";
@@ -116,10 +115,9 @@ window.searchArtworks = async () => {
     }
 
     resultsContainer.innerHTML = '<div class="col-span-full text-center p-8 text-gray-400">Searching...</div>';
-    statusMessage.textContent = '';
+    statusMessage.textContent = ''; 
 
     try {
-        // Request fields: id, title, artist_display, image_id, width, height
         const url = `${BASE_API_URL}?q=${encodeURIComponent(queryText)}&fields=id,title,artist_display,image_id,dimensions,width,height&limit=24`;
 
         const response = await fetch(url);
@@ -130,18 +128,18 @@ window.searchArtworks = async () => {
 
         if (data.data.length === 0) {
             resultsContainer.innerHTML = '<div class="col-span-full text-center p-8 text-gray-400">No artworks found for that query. Try something else!</div>';
+            statusMessage.textContent = 'Search returned no results.';
         } else {
             renderSearchResults(data.data);
+            statusMessage.textContent = `Search complete. ${data.data.length} results found.`;
         }
 
     } catch (error) {
         console.error("Search failed:", error);
-        statusMessage.textContent = `Search failed: ${error.message}.`;
+        statusMessage.textContent = `Search failed: ${error.message}. Could not connect to the AIC API.`;
         resultsContainer.innerHTML = '<div class="col-span-full text-center p-8 text-red-400">Could not connect to the AIC API.</div>';
     }
 };
-
-// --- Rendering Functions ---
 
 const getImageUrl = (imageId) => {
     if (!imageId) return null;
@@ -153,48 +151,42 @@ const createArtworkCard = (artwork, isFavorite) => {
     const cardContainer = document.createElement('div');
     cardContainer.className = "card-container";
 
-    // Determine frame orientation based on aspect ratio: horizontal if width > 1.1 * height
     const aspectRatio = artwork.width && artwork.height ? artwork.width / artwork.height : 1;
     const frameClass = aspectRatio >= 1.1 ? 'horizontal-frame' : 'vertical-frame';
 
-    // FIX: Robust escaping for strings passed into the onclick attribute
-    // 1. Escape backslashes (\\ to \\\\)
-    // 2. Escape single quotes (' to \') since the property strings are single-quoted in the HTML
     const escapeString = (str) => {
         if (!str) return '';
-        // Ensure to handle null/undefined and then perform robust escaping
         return str.toString().replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     };
 
     const safeTitle = escapeString(artwork.title);
     
-    // Determine the artist name to display (either 'artist' from favorites or 'artist_display' from search)
     const displayArtist = artwork.artist || artwork.artist_display || 'Unknown Artist';
-    
-    // Determine the artist name to pass to addFavorite (must be artist_display as addFavorite expects it)
     const saveArtist = artwork.artist_display || artwork.artist || 'Unknown Artist';
     const safeArtist = escapeString(saveArtist); 
     
     const safeImageId = artwork.image_id || '';
     const width = artwork.width || 0;
     const height = artwork.height || 0;
+    
+    const altText = `Image of ${artwork.title} by ${displayArtist}.`;
 
 
     cardContainer.innerHTML = `
         <div class="frame ${frameClass}"></div>
         <div class="artwork-card bg-gray-700 border border-gray-600 rounded-xl shadow-lg overflow-hidden flex flex-col transition-shadow hover:shadow-xl relative w-full h-full">
             <div class="artwork-image-wrapper h-48 sm:h-64 md:h-80 overflow-hidden">
-                <img src="${imageUrl}" alt="${artwork.title}" class="object-contain max-w-full max-h-full" onerror="this.onerror=null;this.src='https://placehold.co/400x300/403F4C/E4E6C3?text=No+Image';">
+                <img src="${imageUrl}" alt="${altText}" class="object-contain max-w-full max-h-full" onerror="this.onerror=null;this.src='https://placehold.co/400x300/403F4C/E4E6C3?text=No+Image';this.alt='Placeholder image for artwork with no available image.';">
             </div>
             <div class="p-5 flex flex-col flex-grow">
                 <h3 class="text-2xl font-bold mb-2 text-center">${artwork.title}</h3>
                 <p class="text-sm mb-4 text-center">${displayArtist}</p>
                 <div class="mt-auto">
                     ${isFavorite
-                        ? `<button onclick="removeFavorite(${artwork.id})" class="custom-button w-full font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-150">
+                        ? `<button onclick="removeFavorite(${artwork.id})" class="custom-button w-full font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-150" aria-label="Remove ${artwork.title} from favorites">
                             Remove Favorite
                            </button>`
-                        : `<button onclick="addFavorite({id: ${artwork.id}, title: '${safeTitle}', artist_display: '${safeArtist}', image_id: '${safeImageId}', width: ${width}, height: ${height}})" class="custom-button w-full font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-150">
+                        : `<button onclick="addFavorite({id: ${artwork.id}, title: '${safeTitle}', artist_display: '${safeArtist}', image_id: '${safeImageId}', width: ${width}, height: ${height}})" class="custom-button w-full font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-150" aria-label="Save ${artwork.title} by ${displayArtist} as favorite">
                             Save Favorite
                            </button>`
                     }
@@ -209,7 +201,6 @@ const createArtworkCard = (artwork, isFavorite) => {
 const renderSearchResults = (artworks) => {
     const container = document.getElementById('search-results');
     container.innerHTML = '';
-    // Use the in-memory cache populated by loadFavorites
     const favoritesIds = new Set(favoritesData.map(fav => fav.id));
 
     artworks.forEach(artwork => {
@@ -243,7 +234,7 @@ const renderFavorites = (favorites) => {
         container.appendChild(createArtworkCard({
             id: artwork.id,
             title: artwork.title,
-            artist: artwork.artist || 'Unknown Artist', // Passed as 'artist' from saved data
+            artist: artwork.artist || 'Unknown Artist', 
             image_id: artwork.image_id,
             width: artwork.width,
             height: artwork.height
