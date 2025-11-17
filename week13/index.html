@@ -1,0 +1,71 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Transparency</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">amazon.ethical</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Amazon..." value="kettle">
+            <button>Search</button>
+        </div>
+        <nav class="nav">
+            </nav>
+    </header>
+
+    <main class="container">
+        
+        <aside class="control-panel">
+            <h2>Transparency Controls</h2>
+            <p>Reveal the hidden factors influencing product rank.</p>
+            
+            <button id="analyze-rank-btn" class="action-btn">
+                🔍 Analyze Top Rank
+            </button>
+
+            <div class="toggle-container">
+                <label for="prioritization-toggle">Prioritize:</label>
+                <div class="toggle-switch">
+                    <span class="label-left">Profit</span>
+                    <input type="checkbox" id="prioritization-toggle" checked>
+                    <span class="label-right">Ethical Sourcing</span>
+                </div>
+            </div>
+
+            <div id="visualization-area" class="hidden-viz">
+                <h3>Rank Bias Visualization</h3>
+                <div class="bar-chart-container">
+                    <div class="bar-label">Profit Score: <span id="viz-profit"></span></div>
+                    <div id="profit-bar" class="data-bar profit"></div>
+                    <div class="bar-label">Ethical Score: <span id="viz-ethical"></span></div>
+                    <div id="ethical-bar" class="data-bar ethical"></div>
+                </div>
+                <p class="viz-note">The current rank is driven by **Profit Score**.</p>
+            </div>
+        </aside>
+
+        <section id="search-results" class="search-results-container">
+            </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<div class="product-card" data-id="1" data-profit-score="80" data-ethical-score="10">
+    <img src="kettle.png" alt="Electric Kettle" class="product-image">
+    <h3 class="product-title">Amazon Basics Kettle</h3>
+    <p class="product-price">$25.00</p>
+    <div class="product-ranking">
+        <span class="review-score">⭐⭐⭐⭐ (4.0)</span>
+    </div>
+    <div class="ethical-badge hidden">Ethically Sourced!</div>
+</div>
+</body>
+</html>
