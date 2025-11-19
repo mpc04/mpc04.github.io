@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap');
+
+* {
+    box-sizing: border-box;
+    position: relative;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Faculty Glyphic', sans-serif;
+    background: #000;
+    color: #FFF;
+    overflow: hidden;
+}
+
+/* --- Background Images --- */
+.bgImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    z-index: 0;
+    transition: transform 1s; /* Subtle zoom effect if needed */
+}
+
+.bgImg.active {
+    opacity: 0.9;
+    z-index: 1;
+}
+
+.bgImg.sub {
+    z-index: 2; /* Used during transitions */
+}
+
+/* --- Main Layout --- */
+#gsapBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    z-index: 10;
+}
+
+/* --- Custom Select Wrapper --- */
+.custom-select-wrapper {
+    width: 460px;
+    position: relative;
+    z-index: 100;
+}
+
+/* The Trigger (Main visible box) */
+.custom-select-trigger {
+    width: 100%;
+    height: 60px;
+    padding: 0 25px;
+    border-radius: 30px;
+    
+    /* Glass Effect */
+    background: linear-gradient(0deg, #FFF9 0px, #FFF3 10px, #FFF0, #FFF0, #FFF3 calc( 100% - 10px ), #FFF9 100%), #9991;
+    backdrop-filter: url(#glass) blur(6px); /* Fallback blur */
+    backdrop-filter: blur(6px);
+    border: solid 2px #FFF9;
+    box-shadow: 2px 2px 4px 0 #0006, -1px -1px 1px 0 #0002;
+    
+    color: #FFF;
+    font-size: 20px;
+    text-shadow: 0px 0px 6px #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.25s ease-out;
+    user-select: none;
+}
+
+.custom-select-trigger:hover {
+    background: linear-gradient(0deg, #FFF9 0px, #FFF3 10px, #FFF0, #FFF0, #FFF3 calc( 100% - 10px ), #FFF9 100%), #FFF4;
+}
+
+/* Arrow Icon */
+.arrow {
+    transition: transform 0.3s;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    transform: rotate(45deg);
+    margin-bottom: 3px;
+}
+
+/* Open State styles for Trigger */
+.custom-select-wrapper.open .custom-select-trigger {
+    border-radius: 30px 30px 0 0; /* Flatten bottom */
+    background: linear-gradient(0deg, #FFF3 25px, #FFF0, #FFF0, #FFF3 calc( 100% - 25px ), #FFF9 100%), #FFF4;
+    border-bottom: none;
+    text-shadow: none;
+    color: rgba(255,255,255,0.5);
+}
+
+.custom-select-wrapper.open .arrow {
+    transform: rotate(-135deg);
+    margin-bottom: -3px;
+}
+
+/* --- Options Container --- */
+.custom-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, #FFF3 0px, rgba(255,255,255,0.1) 100%);
+    backdrop-filter: blur(10px);
+    border: solid 2px #FFF9;
+    border-top: none;
+    border-radius: 0 0 30px 30px;
+    overflow: hidden;
+    
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    padding: 0; 
+}
+
+.custom-select-wrapper.open .custom-options {
+    max-height: 60vh; /* Max height for scrolling */
+    opacity: 1;
+    pointer-events: all;
+    padding-bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.scroll-container {
+    max-height: 55vh;
+    overflow-y: auto;
+    padding: 10px 15px;
+}
+
+/* Custom Scrollbar */
+.scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+.scroll-container::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    margin: 20px 0;
+    border-radius: 4px;
+}
+.scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.4);
+    border-radius: 4px;
+}
+
+/* --- Individual Option --- */
+.custom-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 0;
+    border-radius: 18px;
+    border: solid 1px rgba(255,255,255,0.1);
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    height: 122px; /* Fixed height to match icon */
+    overflow: hidden;
+}
+
+.custom-option:last-child {
+    margin-bottom: 0;
+}
+
+.custom-option:hover {
+    background-color: rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.3);
+}
+
+/* Option Icon */
+.option-icon {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    margin-right: 15px;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(75%);
+    transition: filter 0.25s;
+}
+
+.custom-option:hover .option-icon {
+    filter: brightness(100%);
+}
+
+/* Option Text & Hover Description */
+.option-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-right: 10px;
+    flex-grow: 1;
+}
+
+.option-label {
+    font-size: 18px;
+    font-weight: 500;
+    text-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+.option-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: #eee;
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+    transition: all 0.3s ease;
+    margin-top: 5px;
+}
+
+.custom-option:hover .option-desc {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+/* Selected Checkmark visual (optional, simple dot) */
+.custom-option.selected {
+    background-color: rgba(255,255,255,0.1);
+    border-color: #FFF9;
+}
+
+/* SVG Filter definition (hidden) */
+.svg-filters {
+    position: absolute; 
+    width: 0; 
+    height: 0; 
+    pointer-events: none;
+}

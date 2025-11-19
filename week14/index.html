@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Destinations</title>
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- SVG Filters for Glass Effect -->
+    <svg class="svg-filters">
+        <defs>
+            <filter id="glass" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+                <feDisplacementMap in="SourceGraphic" scale="40" xChannelSelector="A" yChannelSelector="R" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Background Images -->
+    <!-- Note: IDs are now prefixed with 'bg' + the location name -->
+    <div id="bgamsterdam" class="bgImg active" style="background-image: url('amsterdam.jpg');"></div>
+    <div id="bgbudapest" class="bgImg" style="background-image: url('budapest.jpg');"></div>
+    <div id="bgcroatia" class="bgImg" style="background-image: url('croatia.jpg');"></div>
+    <div id="bgireland" class="bgImg" style="background-image: url('ireland.jpg');"></div>
+    <div id="bgkrakow" class="bgImg" style="background-image: url('krakow.jpg');"></div>
+    <div id="bgprague" class="bgImg" style="background-image: url('prague.jpg');"></div>
+    <div id="bgportugal" class="bgImg" style="background-image: url('protugal.jpg');"></div>
+
+
+    <div id="gsapBody">
+        
+        <div class="custom-select-wrapper" id="selectWrapper">
+            
+            <!-- The Clickable Trigger -->
+            <div class="custom-select-trigger" id="selectTrigger">
+                <span id="triggerText">Amsterdam</span>
+                <div class="arrow"></div>
+            </div>
+
+            <!-- The Dropdown Options -->
+            <div class="custom-options">
+                <div class="scroll-container">
+                    
+                    <!-- Option 1: Amsterdam -->
+                    <div class="custom-option selected" data-value="amsterdam">
+                        <div class="option-icon" style="background-image: url('amsterdam.jpg');"></div>
+                        <div class="option-content">
+                            <span class="option-label">Amsterdam</span>
+                            <span class="option-desc">Canals and historic architecture</span>
+                        </div>
+                    </div>
+
+                    <!-- Option 2: Budapest -->
+                    <div class="custom-option" data-value="budapest">
+                        <div class="option-icon" style="background-image: url('budapest.jpg');"></div>
+                        <div class="option-content">
+                            <span class="option-label">Budapest</span>
+                            <span class="option-desc">The Hungarian Parliament at night</span>
+                        </div>
+                    </div>
+
+                    <!-- Option 3: Croatia -->
+                    <div class="custom-option" data-value="croatia">
+                        <div class="option-icon" style="background-image: url('croatia.jpg');"></div>
+                        <div class="option-content">
+                            <span class="option-label">Dubrovnik</span>
+                            <span class="option-desc">Stunning coastal views of Croatia</span>
+                        </div>
+                    </div>
+
+                    <!-- Option 4: Ireland -->
+                    <div class="custom-option" data-value="ireland">
+                        <div class="option-icon" style="background-image: url('ireland.jpg');"></div>
+                        <div class="option-content">
+                            <span class="option-label">Ireland</span>
+                            <span class="option-desc">The majestic Cliffs of Moher</span>
+                        </div>
+                    </div>
+
+                    <!-- Option 5: Krakow -->
+                    <div class="custom-option" data-value="krakow">
+                        <div class="option-icon" style="background-image: url('krakow.jpg');"></div>
+                        <div class="option-content">
+                            <span class="option-label">Krakow</span>
+                            <span class="option-desc">St. Mary's Basilica and Main Square</span>
+                        </div>
+                    </div>
+
+                    <!-- Option 6: Prague -->
+                    <div class="custom-option" data-value="prague">
+                        <div class="option-icon" style="background-image: url('prague.jpg');"></div>
+                        <div class="option-content">
+                            <span class="option-label">Prague</span>
+                            <span class="option-desc">Church of Our Lady before Týn</span>
+                        </div>
+                    </div>
+
+                    <!-- Option 7: Portugal -->
+                    <div class="custom-option" data-value="portugal">
+                        <div class="option-icon" style="background-image: url('protugal.jpg');"></div>
+                        <div class="option-content">
+                            <span class="option-label">Sintra</span>
+                            <span class="option-desc">The colorful Pena Palace in Portugal</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Link to external JS -->
+    <script src="script.js"></script>
+</body>
+</html>
