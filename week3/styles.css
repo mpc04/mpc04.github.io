@@ -1,0 +1,227 @@
+/* --- Core Styling and Background --- */
+body {
+    /* FIX: Merged Body Rule to prevent conflicts */
+    /* Background Image: Ensure path is correct for background.jpg */
+    background-image: url('images/background.png'); 
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh; 
+
+    /* Custom Cursors */
+    cursor: url('images/pointer.png'), default; /* Default cursor */
+    
+    /* Remaining body styles */
+    color: white; 
+    font-family: 'Silkscreen', sans-serif; 
+    margin: 0;
+    padding: 0;
+    
+}
+
+/* --- Interactive Elements Cursor --- */
+.navbar a, 
+.social-link, 
+.gallery-wrap { 
+    /* The clicking hand */
+    cursor: url('images/clicker.png'), pointer; /* Pointer cursor for links/interactive areas */
+}
+
+/* For the drag-to-scroll gallery */
+.gallery-wrap.active {
+    cursor: url('images/clicker.png'), grabbing; 
+}
+
+
+/* --- Navigation Bar --- */
+.navbar {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.navbar a:hover {
+    color: #ff00ff; /* A vibrant hover color */
+    border-bottom: 2px solid #ff00ff;
+}
+
+/* --- 1. Home Page Styles --- */
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    position: relative;
+    min-height: 80vh; /* Ensure content is vertically centered on the page */
+}
+
+.main-logo {
+    max-width: 400px;
+    height: auto;
+    z-index: 5;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+}
+
+.scatter-image {
+    position: absolute;
+    width: 100px; /* Base size */
+    opacity: 0.8;
+    transition: transform 0.4s ease-in-out, opacity 0.4s;
+    cursor: default;
+}
+
+/* Mouse hover animation */
+.scatter-image:hover {
+    transform: scale(1.3) rotate(10deg); /* Scales and rotates on hover */
+    opacity: 1;
+}
+
+/* --- 2. Gallery Page Styles (Horizontal Scroll) --- */
+/* The Gallery Wrap acts as the viewport for the scrolling content */
+.gallery-wrap {
+    width: 100%;
+    height: 100vh; /* Takes up the full height of the viewport */
+    overflow-x: scroll; /* Allows horizontal scrolling */
+    overflow-y: hidden; /* Prevents vertical scrolling */
+    white-space: nowrap; /* Ensures items stay on one line */
+    position: relative;
+    padding-top: 50px; /* Space below the nav bar */
+}
+
+/* The Gallery Container holds all the items side-by-side */
+.gallery-container {
+    height: 100%;
+    display: inline-flex; /* Lays out the items horizontally */
+    align-items: center; /* Vertically center the items */
+    gap: 100px; /* Space between the gallery items */
+    padding: 0 50vw; /* Padding on the ends so you can scroll to center the first/last items */
+}
+
+/* Individual Item Styling */
+.gallery-item {
+    display: inline-block;
+    height: 70%; /* Item takes 70% of the viewport height */
+    max-width: 400px; /* Control the max width of the item */
+    transition: all 0.5s ease;
+    /* Removed redundant 'cursor: grab;' as it's set in the global .gallery-wrap rule above */
+}
+
+.gallery-item img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    transition: filter 0.3s;
+}
+
+/* Effect: Grayscale on images not in focus (managed by JS) */
+.gallery-item:not(.active) img {
+    filter: grayscale(100%) brightness(50%);
+}
+
+
+/* --- 3. About Page Styles --- */
+.about-container {
+    display: flex;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.headshot {
+    width: 300px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 30px;
+    object-fit: cover;
+}
+
+.about-text {
+    flex-grow: 1;
+    line-height: 1.6;
+}
+
+.about-text h2 {
+    color: #00ffc8;
+    margin-top: 0;
+}
+
+/* --- 4. Contact Page Styles --- */
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+}
+
+.social-link {
+    color: #ff00ff;
+    text-decoration: none;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    margin: 10px;
+    border: 2px solid #ff00ff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.social-link:hover {
+    background-color: #ff00ff;
+    color: black;
+}
+
+/* --- Infinite Scrolling Text Feature --- */
+
+.scrolling-text-container {
+    width: 100%;
+    overflow: hidden; /* Hides the repeated text outside the viewport */
+    white-space: nowrap; /* Forces the text to stay on one line */
+    position: absolute;
+    bottom: 35px; /* Position it near the top */
+    left: 0;
+    z-index: 10;
+    
+   
+}
+
+.scrolling-text {
+    display: inline-block;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #00ffc8; /* A bright, contrasting color */
+    
+    /* Apply the animation */
+    animation: scroll-left 20s linear infinite; /* 20s duration, continuous, infinite loop */
+    
+    /* Prevents the text from being affected by hover cursor style */
+    cursor: default !important;
+}
+
+/* Define the scrolling movement */
+@keyframes scroll-left {
+    0% {
+        transform: translate3d(0, 0, 0); /* Start at original position */
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0); /* Move left by half the text width */
+    }
+}
