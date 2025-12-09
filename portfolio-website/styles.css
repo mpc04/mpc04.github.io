@@ -1,14 +1,36 @@
-/* Universal Background */
+/* --- Core Styling and Background --- */
 body {
-    background-image: url('images/background.png');
+    /* FIX: Merged Body Rule to prevent conflicts */
+    /* Background Image: Ensure path is correct for background.jpg */
+    background-image: url('images/background.png'); 
     background-size: cover;
-    background-attachment: fixed; /* Ensures the background stays put */
-    color: white; /* Default text color */
-    font-family: sans-serif;
+    background-attachment: fixed;
+    min-height: 100vh; 
+
+    /* Custom Cursors */
+    cursor: url('images/pointer.png'), default; /* Default cursor */
+    
+    /* Remaining body styles */
+    color: white; 
+    font-family: 'Silkscreen', sans-serif; 
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    
 }
+
+/* --- Interactive Elements Cursor --- */
+.navbar a, 
+.social-link, 
+.gallery-wrap { 
+    /* The clicking hand */
+    cursor: url('images/clicker.png'), pointer; /* Pointer cursor for links/interactive areas */
+}
+
+/* For the drag-to-scroll gallery */
+.gallery-wrap.active {
+    cursor: url('images/clicker.png'), grabbing; 
+}
+
 
 /* --- Navigation Bar --- */
 .navbar {
@@ -67,26 +89,47 @@ body {
     opacity: 1;
 }
 
-/* --- 2. Gallery Page Styles --- */
-.gallery-container {
-    padding: 20px;
-    display: flex;
-    flex-direction: column; /* Stacks images vertically */
-    align-items: center;
-    /* This mimics the scrollable feature by making the page long and filling it with items */
-    gap: 30px; /* Space between items */
-}
-
-.gallery-item {
-    max-width: 800px; /* Set a max width for the images */
+/* --- 2. Gallery Page Styles (Horizontal Scroll) --- */
+/* The Gallery Wrap acts as the viewport for the scrolling content */
+.gallery-wrap {
     width: 100%;
-    height: auto;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
+    height: 100vh; /* Takes up the full height of the viewport */
+    overflow-x: scroll; /* Allows horizontal scrolling */
+    overflow-y: hidden; /* Prevents vertical scrolling */
+    white-space: nowrap; /* Ensures items stay on one line */
+    position: relative;
+    padding-top: 50px; /* Space below the nav bar */
 }
 
-.gallery-item:hover {
-    transform: scale(1.02);
+/* The Gallery Container holds all the items side-by-side */
+.gallery-container {
+    height: 100%;
+    display: inline-flex; /* Lays out the items horizontally */
+    align-items: center; /* Vertically center the items */
+    gap: 100px; /* Space between the gallery items */
+    padding: 0 50vw; /* Padding on the ends so you can scroll to center the first/last items */
+}
+
+/* Individual Item Styling */
+.gallery-item {
+    display: inline-block;
+    height: 70%; /* Item takes 70% of the viewport height */
+    max-width: 400px; /* Control the max width of the item */
+    transition: all 0.5s ease;
+    /* Removed redundant 'cursor: grab;' as it's set in the global .gallery-wrap rule above */
+}
+
+.gallery-item img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    transition: filter 0.3s;
+}
+
+/* Effect: Grayscale on images not in focus (managed by JS) */
+.gallery-item:not(.active) img {
+    filter: grayscale(100%) brightness(50%);
 }
 
 
@@ -143,4 +186,42 @@ body {
 .social-link:hover {
     background-color: #ff00ff;
     color: black;
+}
+
+/* --- Infinite Scrolling Text Feature --- */
+
+.scrolling-text-container {
+    width: 100%;
+    overflow: hidden; /* Hides the repeated text outside the viewport */
+    white-space: nowrap; /* Forces the text to stay on one line */
+    position: absolute;
+    bottom: 35px; /* Position it near the top */
+    left: 0;
+    z-index: 10;
+    
+   
+}
+
+.scrolling-text {
+    display: inline-block;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #00ffc8; /* A bright, contrasting color */
+    
+    /* Apply the animation */
+    animation: scroll-left 20s linear infinite; /* 20s duration, continuous, infinite loop */
+    
+    /* Prevents the text from being affected by hover cursor style */
+    cursor: default !important;
+}
+
+/* Define the scrolling movement */
+@keyframes scroll-left {
+    0% {
+        transform: translate3d(0, 0, 0); /* Start at original position */
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0); /* Move left by half the text width */
+    }
 }
